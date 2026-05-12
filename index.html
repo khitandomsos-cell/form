@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pendaftaran Khitan Massal</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+
+<body class="bg-gradient-to-br from-green-50 to-gray-100 min-h-screen p-4">
+
+<!-- FORM -->
+<div class="max-w-xl mx-auto bg-white rounded-3xl shadow-2xl p-6 border border-gray-100">
+
+  <div class="text-center mb-8">
+
+    <h1 class="text-4xl font-black text-green-700">
+      Khitan Massal
+    </h1>
+
+    <p class="text-gray-500 mt-2">
+      Formulir Pendaftaran Peserta
+    </p>
+
+  </div>
+
+  <form id="form" class="space-y-5">
+
+    <div>
+      <label class="font-semibold text-gray-700">
+        NIK
+      </label>
+
+      <input
+        type="number"
+        id="nik"
+        required
+        class="w-full mt-2 border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-green-500 outline-none">
+    </div>
+
+    <div>
+      <label class="font-semibold text-gray-700">
+        Nama Lengkap
+      </label>
+
+      <input
+        type="text"
+        id="nama"
+        required
+        class="w-full mt-2 border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-green-500 outline-none">
+    </div>
+
+    <div>
+      <label class="font-semibold text-gray-700">
+        Usia
+      </label>
+
+      <input
+        type="number"
+        id="usia"
+        min="5"
+        required
+        class="w-full mt-2 border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-green-500 outline-none">
+
+      <p class="text-red-500 text-sm mt-1">
+        Minimal usia 5 tahun
+      </p>
+    </div>
+
+    <div>
+      <label class="font-semibold text-gray-700">
+        Nama Orang Tua
+      </label>
+
+      <input
+        type="text"
+        id="ortu"
+        required
+        class="w-full mt-2 border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-green-500 outline-none">
+    </div>
+
+    <div>
+      <label class="font-semibold text-gray-700">
+        No HP Orang Tua
+      </label>
+
+      <input
+        type="tel"
+        id="hp"
+        required
+        class="w-full mt-2 border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-green-500 outline-none">
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+
+      <div>
+        <label class="font-semibold text-gray-700">
+          Berat Badan
+        </label>
+
+        <input
+          type="number"
+          id="berat"
+          required
+          class="w-full mt-2 border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-green-500 outline-none">
+      </div>
+
+      <div>
+        <label class="font-semibold text-gray-700">
+          Tinggi Badan
+        </label>
+
+        <input
+          type="number"
+          id="tinggi"
+          required
+          class="w-full mt-2 border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-green-500 outline-none">
+      </div>
+
+    </div>
+
+    <div>
+      <label class="font-semibold text-gray-700">
+        Alamat
+      </label>
+
+      <textarea
+        id="alamat"
+        required
+        rows="3"
+        class="w-full mt-2 border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-green-500 outline-none"></textarea>
+    </div>
+
+    <div>
+      <label class="font-semibold text-gray-700">
+        Asal Sekolah
+      </label>
+
+      <input
+        type="text"
+        id="sekolah"
+        required
+        class="w-full mt-2 border border-gray-300 rounded-2xl p-4 focus:ring-2 focus:ring-green-500 outline-none">
+    </div>
+
+    <button
+      type="submit"
+      class="w-full bg-green-600 hover:bg-green-700 transition text-white font-bold py-4 rounded-2xl shadow-lg">
+
+      Daftar Sekarang
+
+    </button>
+
+  </form>
+
+</div>
+
+<!-- MODAL BUKTI -->
+<div id="bukti"
+class="hidden fixed inset-0 bg-black/70 z-50 overflow-auto p-4">
+
+  <div class="max-w-md mx-auto bg-white rounded-3xl overflow-hidden shadow-2xl">
+
+    <!-- KOP -->
+    <img
+      src="kop.png"
+      class="w-full">
+
+    <!-- CONTENT -->
+    <div class="p-6">
+
+      <div class="text-center">
+
+        <h2 class="text-3xl font-black text-green-700 leading-tight">
+          BUKTI PENDAFTARAN
+        </h2>
+
+        <p class="text-gray-500 mt-1">
+          Khitan Massal 2026
+        </p>
+
+      </div>
+
+      <!-- NOMOR -->
+      <div class="text-center my-7">
+
+        <p class="text-gray-500 text-sm tracking-widest">
+          NOMOR PESERTA
+        </p>
+
+        <div
+          id="nomorPeserta"
+          style="
+            color:#dc2626;
+            font-size:64px;
+            font-weight:900;
+            letter-spacing:8px;
+            line-height:1;
+            margin-top:10px;
+            font-family:Arial,sans-serif;
+          ">
+          000
+        </div>
+
+      </div>
+
+      <!-- DATA -->
+      <div class="bg-gray-50 rounded-2xl p-5">
+
+        <table class="w-full text-[15px]">
+
+          <tr class="border-b">
+            <td class="py-2 font-semibold">NIK</td>
+            <td class="py-2">:</td>
+            <td id="vNik" class="py-2"></td>
+          </tr>
+
+          <tr class="border-b">
+            <td class="py-2 font-semibold">Nama</td>
+            <td class="py-2">:</td>
+            <td id="vNama" class="py-2"></td>
+          </tr>
+
+          <tr class="border-b">
+            <td class="py-2 font-semibold">Orang Tua</td>
+            <td class="py-2">:</td>
+            <td id="vOrtu" class="py-2"></td>
+          </tr>
+
+          <tr class="border-b">
+            <td class="py-2 font-semibold">Usia</td>
+            <td class="py-2">:</td>
+            <td id="vUsia" class="py-2"></td>
+          </tr>
+
+          <tr class="border-b">
+            <td class="py-2 font-semibold">Tinggi</td>
+            <td class="py-2">:</td>
+            <td id="vTinggi" class="py-2"></td>
+          </tr>
+
+          <tr class="border-b">
+            <td class="py-2 font-semibold">Berat</td>
+            <td class="py-2">:</td>
+            <td id="vBerat" class="py-2"></td>
+          </tr>
+
+          <tr>
+            <td class="py-2 font-semibold">Alamat</td>
+            <td class="py-2">:</td>
+            <td id="vAlamat" class="py-2"></td>
+          </tr>
+
+        </table>
+
+      </div>
+
+      <!-- JADWAL -->
+      <div class="mt-6 text-center">
+
+        <p class="text-gray-500 tracking-widest text-sm">
+          JADWAL KHITAN
+        </p>
+
+        <h3
+          id="jadwalKhitan"
+          class="text-2xl font-black text-green-700 mt-2">
+        </h3>
+
+      </div>
+
+      <!-- FOOTER -->
+      <div class="mt-8">
+
+        <div class="bg-red-50 border border-red-200 rounded-2xl p-4 text-center">
+
+          <p class="text-red-600 text-sm font-semibold">
+            Kartu ini wajib dibawa saat pelaksanaan khitan massal
+          </p>
+
+        </div>
+
+        <p class="text-center text-green-700 font-bold mt-5">
+          Panitia Khitan Massal Dompet Sosial Ulun Nuha 2026
+        </p>
+
+      </div>
+
+      <!-- BUTTON -->
+      <button
+        id="btnDownload"
+        onclick="downloadBukti()"
+        class="w-full mt-6 bg-blue-600 hover:bg-blue-700 transition text-white font-bold py-4 rounded-2xl shadow-lg">
+
+        Download Bukti
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbySgrQwnx2iLGSJ4QUIqz4Qgfaq9zlL7gxfcZvNlqX3dZORZqanoPEhiFPH9iyxL9cf/exec";
+
+const form = document.getElementById('form');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const usia = Number(document.getElementById('usia').value);
+
+  if (usia < 5) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Usia minimal 5 tahun'
+    });
+    return;
+  }
+
+  const data = {
+    nik: nik.value,
+    nama: nama.value,
+    usia: usia,
+    ortu: ortu.value,
+    hp: hp.value,
+    berat: berat.value,
+    tinggi: tinggi.value,
+    alamat: alamat.value,
+    sekolah: sekolah.value
+  };
+
+  Swal.fire({
+    title: 'Mengirim...',
+    allowOutsideClick: false,
+    didOpen: () => Swal.showLoading()
+  });
+
+  try {
+
+    const res = await fetch(WEB_APP_URL, {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+
+    Swal.close();
+
+if (result.status === "exists") {
+
+  Swal.fire({
+    icon: 'info',
+    title: 'Sudah Pernah Mendaftar',
+    text: 'NIK sudah terdaftar'
+  });
+
+} else {
+
+  Swal.fire({
+  title: 'Pendaftaran Berhasil',
+  text: 'Terima kasih telah melakukan pendaftaran',
+  imageUrl: 'terimakasih.png',
+  imageWidth: 220,
+  imageAlt: 'Terima Kasih',
+  confirmButtonText: 'Lihat Bukti'
+});
+
+}
+
+const d = result.data;
+
+document.getElementById('nomorPeserta').innerText = result.nomor;
+
+const nomorPeserta = parseInt(result.nomor);
+
+let jadwal = "";
+
+if (nomorPeserta <= 15) {
+  jadwal = "Pukul 08.00 WIB - 09.00 WIB";
+}
+else if (nomorPeserta <= 30) {
+  jadwal = "Pukul 09.00 WIB - 10.00 WIB";
+}
+else if (nomorPeserta <= 45) {
+  jadwal = "Pukul 10.00 WIB - 11.00 WIB";
+}
+else if (nomorPeserta <= 50) {
+  jadwal = "Pukul 11.00 WIB - 12.00 WIB";
+}
+else if (nomorPeserta <= 60) {
+  jadwal = "Pukul 14.00 WIB - 15.00 WIB";
+}
+
+document.getElementById('jadwalKhitan').innerText = jadwal;
+
+vNik.innerText = d.nik;
+vNama.innerText = d.nama;
+vOrtu.innerText = d.ortu;
+vUsia.innerText = d.usia + " Tahun";
+vTinggi.innerText = d.tinggi + " cm";
+vBerat.innerText = d.berat + " kg";
+vAlamat.innerText = d.alamat;
+
+document.getElementById('bukti').classList.remove('hidden');
+
+form.reset();
+
+  } catch (err) {
+
+    Swal.fire({
+      icon: 'error',
+      title: 'Gagal mengirim data'
+    });
+
+  }
+
+});
+
+function downloadBukti() {
+
+  const element = document.querySelector('#bukti .max-w-md');
+  const btn = document.getElementById('btnDownload');
+
+  // ambil data
+  const nama = document.getElementById('vNama').innerText.trim();
+  const nomor = document.getElementById('nomorPeserta').innerText.trim();
+
+  // format nama file
+  const fileName =
+    `Bukti_Khitan_${nama.replace(/\s+/g, '_')}_${nomor}.png`;
+
+  // sembunyikan tombol
+  btn.style.display = 'none';
+
+  html2canvas(element, {
+    scale: 3
+  }).then(canvas => {
+
+    const link = document.createElement('a');
+
+    link.download = fileName;
+    link.href = canvas.toDataURL('image/png');
+
+    link.click();
+
+    // tampilkan kembali tombol
+    btn.style.display = 'block';
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>
